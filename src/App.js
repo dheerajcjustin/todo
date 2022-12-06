@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
+import moment from "moment";
 import { useState } from "react";
-
+// const time = moment.day(7);
 function App() {
   const [toDos, setToDos] = useState([]);
   const [toDo, setToDo] = useState("");
@@ -11,6 +12,10 @@ function App() {
     });
     setToDos(removeItem);
   }
+  const addButtonHandler = () => {
+    setToDos([...toDos, { id: Date.now(), text: toDo, status: false }]);
+    setToDo("");
+  };
   return (
     <div className="app">
       <div className="mainHeading">
@@ -18,7 +23,11 @@ function App() {
       </div>
       <div className="subHeading">
         <br />
-        <h2>Whoop, it's Wednegfsdfsasday 🌝 ☕ </h2>
+        <h2>
+          Whoop, it's ❤ {moment().format("dddd")}
+          {/* {moment.locale("ml").format("dddd")} */}
+        </h2>
+        <h3>lets organize our day </h3>
       </div>
       <div className="input">
         <input
@@ -27,12 +36,7 @@ function App() {
           onChange={(e) => setToDo(e.target.value)}
           placeholder="🖊️ Add item..."
         />
-        <i
-          onClick={() =>
-            setToDos([...toDos, { id: Date.now(), text: toDo, status: false }])
-          }
-          className="fas fa-plus"
-        ></i>
+        <i onClick={addButtonHandler} className="fas fa-plus"></i>
       </div>
       <div className="todos">
         {toDos.map((value) => {
